@@ -20,8 +20,17 @@ def count_mentions(some_colour_word: str):
     """
     # hint - the .lower() method will convert a Python string to lowercase.
     # https://www.w3schools.com/python/ref_string_lower.asp
-    pass
+    
+    with open('colours_20_simple.csv') as csv_file:
+        csv_reader = csv.reader(csv_file)
 
+        count = 0
+        for colour in csv_reader:
+            if some_colour_word.lower() in colour[2].lower():
+                count +=1
+    return count
+
+# count_mentions('beige')
 
 def generate_coloured_text(colour_name: str):
     """The "colours865.csv" file is a .csv file with a header. It lists facts 
@@ -42,7 +51,14 @@ def generate_coloured_text(colour_name: str):
     Example: supplying the argument "Alizarin Crimson" would result in a return 
     value of '<p style="color:#e32636;">Alizarin Crimson</p>'
     """
-    pass
+    with open('colours_865.csv') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        
+        for row in csv_reader:
+            if colour_name in row[2] and colour_name == row[2]:
+                return f'<p style="color:{row[1]};">{colour_name}</p>'
+
+# generate_coloured_text('Alizarin Crimson')
 
 def galactic_speed_percentile(galactic_speed: float):
     """The "galaxies.csv" file is a .csv file WITHOUT a header. It describes
@@ -69,4 +85,21 @@ def galactic_speed_percentile(galactic_speed: float):
         0% of the listed galaxies are travelling faster than 999999km/sec 
     """
     
-    pass
+    with open('galaxies.csv') as csv_file:
+        csv_reader = csv.reader(csv_file) # print out the object
+
+        count = 0
+        for planet in csv_reader:
+            if galactic_speed > int(planet[1]):  # convert string to integer 
+                count += 1
+        print(count)
+        percentile = 100 * ((82 - count)) / 82 
+        print(percentile)
+        return percentile 
+        
+# print(galactic_speed_percentile(32790.0))
+            
+
+
+
+
